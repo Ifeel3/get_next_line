@@ -6,7 +6,7 @@
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 05:30:39 by lvallie           #+#    #+#             */
-/*   Updated: 2021/05/02 14:22:07 by lvallie          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:26:24 by lvallie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	gnl_init(int fd, char **reminder, char **line)
 {
-	char	*tmp;
-
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (0);
 	if (!*reminder)
@@ -24,10 +22,7 @@ int	gnl_init(int fd, char **reminder, char **line)
 		if (!*reminder)
 			return (0);
 	}
-	tmp = *line;
 	*line = ft_strdup("");
-	if (tmp != NULL)
-		free(tmp);
 	if (!*line)
 	{
 		free(*reminder);

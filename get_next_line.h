@@ -6,14 +6,14 @@
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 00:47:00 by lvallie           #+#    #+#             */
-/*   Updated: 2021/05/02 12:27:01 by lvallie          ###   ########.fr       */
+/*   Updated: 2021/05/02 19:17:19 by lvallie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 32
 # endif
 # include <unistd.h>
 # include <stdlib.h>
