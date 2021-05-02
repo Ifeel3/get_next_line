@@ -6,49 +6,78 @@
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 00:44:12 by lvallie           #+#    #+#             */
-/*   Updated: 2021/05/02 01:55:29 by lvallie          ###   ########.fr       */
+/*   Updated: 2021/05/02 14:07:00 by lvallie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(char *string, size_t size)
-{
-	char	*tmp;
-
-	tmp = string;
-	while (size--)
-		*tmp++ = 0;
-}
-
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (s == NULL)
+		return (0);
 	i = 0;
 	while (s[i] != 0)
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strchr(char *string, int c)
 {
-	char	*new;
-	char	*tmp1;
-	char	*tmp2;
+	if (string != NULL)
+	{
+		while (*string)
+		{
+			if (*string++ == c)
+				return (string - 1);
+		}
+	}
+	return (NULL);
+}
 
-	if (s1 == NULL || s2 == NULL)
+char	*ft_strdup(char *src)
+{
+	char	*destination;
+	char	*source;
+	char	*tmp;
+	size_t	srclen;
+
+	source = src;
+	srclen = ft_strlen(src);
+	destination = (char *)malloc(sizeof(char) * (srclen + 1));
+	if (!destination)
 		return (NULL);
-	new = malloc(sizeof(*s1) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (new == NULL)
-		return (NULL);
-	tmp1 = new;
-	tmp2 = (char *)s1;
-	while (*tmp2)
-		*tmp1++ = *tmp2++;
-	tmp2 = (char *)s2;
-	while (*tmp2)
-		*tmp1++ = *tmp2++;
-	*tmp1 = '\0';
-	return (new);
+	tmp = destination;
+	while (srclen--)
+		*tmp++ = *source++;
+	*tmp = 0;
+	return (destination);
+}
+
+int	gnl_strcat(char **dest, char *src)
+{
+	char	*tmp;
+	char	*new;
+	size_t	dstlen;
+	size_t	srclen;
+	size_t	newlen;
+
+	dstlen = ft_strlen(*dest);
+	srclen = ft_strlen(src);
+	newlen = dstlen + srclen;
+	new = malloc(sizeof(char) * (newlen + 1));
+	if (!new)
+		return (0);
+	new[newlen] = 0;
+	while (srclen--)
+		new[--newlen] = src[srclen];
+	while (dstlen--)
+		new[--newlen] = (*dest)[dstlen];
+	tmp = *dest;
+	*dest = new;
+	if (tmp)
+		free(tmp);
+	return (1);
 }
