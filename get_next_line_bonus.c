@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	gnl_init(int fd, char **reminder, char **line)
 {
@@ -24,10 +24,7 @@ int	gnl_init(int fd, char **reminder, char **line)
 	}
 	*line = ft_strdup("");
 	if (!*line)
-	{
-		free(*reminder);
 		return (0);
-	}
 	return (1);
 }
 
@@ -39,10 +36,7 @@ int	gnl_pushtoline(char **reminder, char **line)
 	if (chrpos)
 		*chrpos = '\0';
 	if (!gnl_strcat(&(*line), *reminder))
-	{
-		free(*reminder);
 		return (0);
-	}
 	if (chrpos)
 		*chrpos = '\n';
 	return (1);
