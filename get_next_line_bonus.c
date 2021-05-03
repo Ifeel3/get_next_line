@@ -6,7 +6,7 @@
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 05:30:39 by lvallie           #+#    #+#             */
-/*   Updated: 2021/05/03 11:20:13 by lvallie          ###   ########.fr       */
+/*   Updated: 2021/05/03 16:24:36 by lvallie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	gnl_strcat(char **dest, char *src)
 	return (1);
 }
 
-static int	gnl_init(int fd, char **reminder, char **line)
+static int	gnl_init(int fd, char **buffer, char **reminder, char **line)
 {
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (0);
@@ -48,6 +48,9 @@ static int	gnl_init(int fd, char **reminder, char **line)
 		if (!*reminder)
 			return (0);
 	}
+	*buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!*buffer)
+		return (0);
 	*line = ft_strdup("");
 	if (!*line)
 		return (0);
@@ -100,11 +103,11 @@ static int	gnl_subn(char **reminder)
 int	get_next_line(int fd, char **line)
 {
 	static char	*reminder;
-	char		buffer[BUFFER_SIZE + 1];
+	char		*buffer;
 	size_t		size;
 
 	size = 1;
-	if (!gnl_init(fd, &reminder, &(*line)))
+	if (!gnl_init(fd, &buffer, &reminder, &(*line)))
 		return (-1);
 	while (!ft_strchr(reminder, '\n') && size)
 	{
@@ -115,6 +118,7 @@ int	get_next_line(int fd, char **line)
 	}
 	if (!gnl_pushtoline(&reminder, line) || !gnl_subn(&reminder))
 		return (-1);
+	free(buffer);
 	if (reminder[0] == 0 && size < 1)
 	{
 		free(reminder);
