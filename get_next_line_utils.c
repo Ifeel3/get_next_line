@@ -55,29 +55,3 @@ char	*ft_strdup(char *src)
 	*tmp = 0;
 	return (destination);
 }
-
-int	gnl_strcat(char **dest, char *src)
-{
-	char	*tmp;
-	char	*new;
-	size_t	dstlen;
-	size_t	srclen;
-	size_t	newlen;
-
-	dstlen = ft_strlen(*dest);
-	srclen = ft_strlen(src);
-	newlen = dstlen + srclen;
-	new = malloc(sizeof(char) * (newlen + 1));
-	if (!new)
-		return (0);
-	new[newlen] = 0;
-	while (srclen--)
-		new[--newlen] = src[srclen];
-	while (dstlen--)
-		new[--newlen] = (*dest)[dstlen];
-	tmp = *dest;
-	*dest = new;
-	if (tmp)
-		free(tmp);
-	return (1);
-}

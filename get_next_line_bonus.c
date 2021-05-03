@@ -6,13 +6,39 @@
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/02 05:30:39 by lvallie           #+#    #+#             */
-/*   Updated: 2021/05/02 19:26:24 by lvallie          ###   ########.fr       */
+/*   Updated: 2021/05/03 11:20:13 by lvallie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	gnl_init(int fd, char **reminder, char **line)
+static int	gnl_strcat(char **dest, char *src)
+{
+	char	*tmp;
+	char	*new;
+	size_t	dstlen;
+	size_t	srclen;
+	size_t	newlen;
+
+	dstlen = ft_strlen(*dest);
+	srclen = ft_strlen(src);
+	newlen = dstlen + srclen;
+	new = malloc(sizeof(char) * (newlen + 1));
+	if (!new)
+		return (0);
+	new[newlen] = 0;
+	while (srclen--)
+		new[--newlen] = src[srclen];
+	while (dstlen--)
+		new[--newlen] = (*dest)[dstlen];
+	tmp = *dest;
+	*dest = new;
+	if (tmp)
+		free(tmp);
+	return (1);
+}
+
+static int	gnl_init(int fd, char **reminder, char **line)
 {
 	if (!line || fd < 0 || BUFFER_SIZE < 1 || read(fd, 0, 0) < 0)
 		return (0);
@@ -28,7 +54,7 @@ int	gnl_init(int fd, char **reminder, char **line)
 	return (1);
 }
 
-int	gnl_pushtoline(char **reminder, char **line)
+static int	gnl_pushtoline(char **reminder, char **line)
 {
 	char	*chrpos;
 
@@ -42,7 +68,7 @@ int	gnl_pushtoline(char **reminder, char **line)
 	return (1);
 }
 
-int	gnl_subn(char **reminder)
+static int	gnl_subn(char **reminder)
 {
 	char	*tmp;
 

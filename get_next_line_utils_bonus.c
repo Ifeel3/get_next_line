@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvallie <lvallie@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -54,30 +54,4 @@ char	*ft_strdup(char *src)
 		*tmp++ = *source++;
 	*tmp = 0;
 	return (destination);
-}
-
-int	gnl_strcat(char **dest, char *src)
-{
-	char	*tmp;
-	char	*new;
-	size_t	dstlen;
-	size_t	srclen;
-	size_t	newlen;
-
-	dstlen = ft_strlen(*dest);
-	srclen = ft_strlen(src);
-	newlen = dstlen + srclen;
-	new = malloc(sizeof(char) * (newlen + 1));
-	if (!new)
-		return (0);
-	new[newlen] = 0;
-	while (srclen--)
-		new[--newlen] = src[srclen];
-	while (dstlen--)
-		new[--newlen] = (*dest)[dstlen];
-	tmp = *dest;
-	*dest = new;
-	if (tmp)
-		free(tmp);
-	return (1);
 }

@@ -22,5 +22,4 @@ int		get_next_line(int fd, char **line);
 char	*ft_strchr(char *string, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(char *src);
-int		gnl_strcat(char **dest, char *src);
 #endif
